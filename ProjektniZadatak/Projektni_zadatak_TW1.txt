@@ -1,0 +1,58 @@
+Projektni zadatak: 
+
+Opis zadatka:
+Studenti trebaju razviti backend sustav koristeći ASP.NET Core Web API te pripadajuću klijentsku aplikaciju po izboru (web, mobilna, desktop ili igraća aplikacija).
+Backend mora biti razvijen koristeći Entity Framework Code First pristup te zadovoljiti sljedeće tehničke zahtjeve:
+________________________________________
+Tehnički zahtjevi backend sustava:
+1.	Arhitektura
+	o	Višeslojna arhitektura (npr. API → Servisni sloj → Repozitorij → Baza podataka)
+	o	Primjena Repository Patterna za rad s bazom podataka
+	o	Svi kontroleri su pokriveni UNIT testovima
+	o	Kompletno rješenje nalazi se na GIT repozitoriju
+2.	Baza podataka (Entity Framework Code First ili Database First)
+	o	Minimalno 8 entiteta
+	o	Bar jedna 1:N relacija (npr. Korisnik → Narudžbe)
+	o	Bar jedna M:N relacija (npr. Korisnici ↔ Uloge)
+3.	Autentifikacija i autorizacija
+	o	Implementacija JWT autentifikacije
+	o	Barem dvije uloge: npr. Admin i Korisnik
+	o	Ograničenje pristupa određenim endpointima na temelju uloge
+4.	Logging i dokumentacija
+	o	Serilog za logiranje svih zahtjeva i grešaka
+	o	Swagger za automatsku dokumentaciju API-ja
+5.	Obrada grešaka
+	o	Middleware za globalnu obradu iznimaka i standardizirani odgovori na greške
+6.	Postavljanje u produkciju (deployment)
+	o	Backend aplikacija mora biti deployana na IIS (Internet Information Services), ili na neki drugi hosting
+Tehnički zahtjevi klijentske aplikacije:
+	•	Klijentska aplikacija mora koristiti sve funkcionalnosti backend sustava (CRUD operacije, autentifikacija, autorizacija itd.). Smiju se koristiti LLM-ovi, i na obrani projekta neće se provjeravati znanje klijentske aplikacije, osim toga da se kroz nju mogu demonstrirati sve funkcionalnosti backend sustava.
+	•	Može biti razvijena kao:
+		o	Web aplikacija (HTML, JavaScript/TypeScript, React, Angular, Vue)
+		o	Mobilna aplikacija (Flutter, React Native, Xamarin, MAUI)
+		o	Desktop aplikacija (WPF, WinForms, Electron)
+		o	Igra (Unity, Godot s C# API integracijom)
+
+________________________________________
+Moguće domene za implementaciju
+
+1.	Sustav za upravljanje događajima (Event Management System)
+	o	Korisnici mogu kreirati događaje, prijavljivati se na njih i komunicirati
+	o	Admin može upravljati korisnicima i događajima
+2.	Sustav za online rezervacije (Hotel, Restoran, Teretana,...)
+	o	Korisnici mogu rezervirati termine
+	o	Admin upravlja dostupnim terminima i korisnicima
+3.	Sustav za upravljanje tečajevima i učenjem
+	o	Korisnici se prijavljuju na tečajeve, polažu testove i ostavljaju recenzije
+	o	Admin dodaje nove tečajeve i moderira sadržaj
+4.	Sustav za praćenje projekata i zadataka (Project Management Tool)
+	o	Korisnici kreiraju projekte i dodjeljuju zadatke
+	o	Admin nadgleda aktivnosti i izvještaje
+5.	E-commerce API (Online trgovina)
+	o	Korisnici pretražuju proizvode, stavljaju ih u košaricu i kupuju
+	o	Admin upravlja proizvodima, narudžbama i korisnicima
+6.	Sustav za upravljanje sportskim aktivnostima (Fitness app, Nogometna liga, Esports turniri,...)
+	o	Korisnici prijavljuju timove, zakazuju utakmice ili vježbe
+	o	Admin vodi evidenciju rezultata i timova
+
+
