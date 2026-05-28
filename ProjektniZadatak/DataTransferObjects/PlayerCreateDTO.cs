@@ -1,8 +1,7 @@
-﻿namespace DataAccessLayer.Model
+﻿namespace ProjektniZadatak.DataTransferObjects
 {
-    public class Player
+    public class PlayerCreateDTO
     {
-        public int Id { get; set; }
         public string Nickname { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
         public int TeamId { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repository
 {
-    internal interface ITeamRepository
+    public interface ITeamRepository
     {
         List<Team> GetAllTeams();
         Team? GetById(int id);
