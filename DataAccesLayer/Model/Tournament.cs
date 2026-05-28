@@ -1,4 +1,4 @@
-﻿namespace ProjektniZadatak.Model
+﻿namespace DataAccessLayer.Model
 {
     public class Tournament
     {

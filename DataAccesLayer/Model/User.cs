@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace ProjektniZadatak.Model
+namespace DataAccessLayer.Model
 {
     public class User : IdentityUser
     {

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProjektniZadatak.DataAccessLayer;
+using DataAccessLayer;
 
 #nullable disable
 
-namespace ProjektniZadatak.Migrations
+namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(EsportManagerContext))]
     partial class EsportManagerContextModelSnapshot : ModelSnapshot

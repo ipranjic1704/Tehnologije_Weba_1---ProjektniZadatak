@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProjektniZadatak.DataAccessLayer;
+using DataAccessLayer;
+
 
 #nullable disable
 
-namespace ProjektniZadatak.Migrations
+namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(EsportManagerContext))]
     [Migration("20260527232029_InitialCreate")]

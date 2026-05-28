@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ProjektniZadatak.DataAccessLayer;
-using ProjektniZadatak.Model;
+using DataAccessLayer.Model;
+using DataAccessLayer;
+using DataAccessLayer.Repository;
+using DataAccessLayer.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,7 @@ builder.Services.AddDbContext<EsportManagerContext>(options => options.UseSqlSer
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<EsportManagerContext>()
     .AddDefaultTokenProviders();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
 
 var app = builder.Build();
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProjektniZadatak.Model;
+using DataAccessLayer.Model;
 
-namespace ProjektniZadatak.DataAccessLayer
+namespace DataAccessLayer
 {
     public class EsportManagerContext : IdentityDbContext<User>
     {
