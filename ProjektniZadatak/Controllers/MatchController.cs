@@ -1,6 +1,5 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
-using DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
 
@@ -72,7 +71,10 @@ namespace ProjektniZadatak.Controllers
                     FirstTeamId = dto.FirstTeamId,
                     SecondTeamId = dto.SecondTeamId
                 };
-                return Ok(service.Update(id, updatedMatch));
+                var result = service.Update(id, updatedMatch);
+                if (result == null)
+                    return NotFound();
+                return Ok(result);
             }
             catch (Exception e)
             {

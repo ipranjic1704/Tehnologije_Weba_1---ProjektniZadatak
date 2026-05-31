@@ -1,6 +1,5 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
-using DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
 
@@ -61,11 +60,16 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Game> Update(int id, [FromBody] Game updatedGame)
+        public ActionResult<Game> Update(int id, [FromBody] GameCreateDTO gameDTO)
         {
             try
             {
-                Game? updated = service.Update(id, updatedGame);
+                Game game = new Game()
+                {
+                    Name = gameDTO.Name,
+                    Genre = gameDTO.Genre
+                };
+                Game? updated = service.Update(id, game);
                 if (updated == null)
                     return NotFound();
                 return Ok(updated);
@@ -80,7 +84,7 @@ namespace ProjektniZadatak.Controllers
         public ActionResult Delete(int id)
         {
             if (!service.Delete(id))
-                return NotFound();;
+                return NotFound();
             return NoContent();
         }
     }

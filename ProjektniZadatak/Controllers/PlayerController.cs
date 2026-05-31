@@ -1,6 +1,5 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
-using DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
 
@@ -70,7 +69,10 @@ namespace ProjektniZadatak.Controllers
                     Role = dto.Role,
                     TeamId = dto.TeamId
                 };
-                return Ok(service.Update(id, updatedPlayer));
+                var result = service.Update(id, updatedPlayer);
+                if (result == null)
+                    return NotFound();
+                return Ok(result);
             }
             catch (Exception e)
             {

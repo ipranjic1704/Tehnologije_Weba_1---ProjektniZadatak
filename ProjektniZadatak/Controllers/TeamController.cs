@@ -1,8 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
-using DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using ProjektniZadatak.DataTransferObjects;
 
 namespace ProjektniZadatak.Controllers

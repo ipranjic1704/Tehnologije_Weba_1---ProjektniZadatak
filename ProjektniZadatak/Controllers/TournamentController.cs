@@ -69,11 +69,18 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Tournament> Update(int id, [FromBody] Tournament updated)
+        public ActionResult<Tournament> Update(int id, [FromBody] TournamentCreateDTO dto)
         {
             try
             {
-                Tournament? updatedTournament = service.Update(id, updated);
+                Tournament tournament = new Tournament()
+                {
+                    Name = dto.Name,
+                    StartDate = dto.StartDate,
+                    EndDate = dto.EndDate,
+                    GameId = dto.GameId
+                };
+                Tournament? updatedTournament = service.Update(id, tournament);
                 if(updatedTournament == null)
                     return NotFound();
                 return Ok(updatedTournament);
