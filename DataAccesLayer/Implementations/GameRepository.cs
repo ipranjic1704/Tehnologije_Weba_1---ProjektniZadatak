@@ -1,11 +1,5 @@
 ﻿using DataAccessLayer.Model;
 using DataAccessLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessLayer;
 
 namespace DataAccessLayer.Implementations
 {
@@ -32,7 +26,7 @@ namespace DataAccessLayer.Implementations
             context.SaveChanges();
         }
 
-        public List<Game> GetAllGames()
+        public List<Game> GetAll()
         {
             return context.Games.ToList();
         }

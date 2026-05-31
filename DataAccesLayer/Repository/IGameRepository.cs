@@ -4,7 +4,7 @@ namespace DataAccessLayer.Repository
 {
     public interface IGameRepository
     {
-        List<Game> GetAllGames();
+        List<Game> GetAll();
         Game? GetById(int id);
         Game Create(Game game);
         Game Update(int id, Game game);

@@ -4,7 +4,7 @@ namespace DataAccessLayer.Repository
 {
     public interface IPlayerRepository
     {
-        List<Player> GetAllPlayers();
+        List<Player> GetAll();
         Player? GetById(int id);
         Player Create(Player player);
         Player Update(int id, Player player);

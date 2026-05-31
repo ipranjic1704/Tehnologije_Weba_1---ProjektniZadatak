@@ -13,7 +13,7 @@ namespace DataAccessLayer.Implementations
             this.context = context;
         }
 
-        public List<Team> GetAllTeams()
+        public List<Team> GetAll()
         {
             return context.Teams.ToList();
         }

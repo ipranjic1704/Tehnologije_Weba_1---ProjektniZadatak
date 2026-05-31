@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using DataAccessLayer.Model;
 
 namespace DataAccessLayer
 {
-    public class EsportManagerContext : IdentityDbContext<User>
+    public class EsportManagerContext : DbContext
     {
         public EsportManagerContext(DbContextOptions<EsportManagerContext> options) : base(options) { }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Player> Players { get; set; }
@@ -19,6 +19,10 @@ namespace DataAccessLayer
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
 
             builder.Entity<Match>()
                 .HasOne(m => m.FirstTeam)

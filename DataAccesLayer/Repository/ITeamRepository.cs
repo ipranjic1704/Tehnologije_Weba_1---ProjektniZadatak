@@ -1,15 +1,10 @@
 ﻿using DataAccessLayer.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repository
 {
     public interface ITeamRepository
     {
-        List<Team> GetAllTeams();
+        List<Team> GetAll();
         Team? GetById(int id);
         Team? GetWithPlayers(int id);
         List<Player> GetPlayersFromTeam(int id);

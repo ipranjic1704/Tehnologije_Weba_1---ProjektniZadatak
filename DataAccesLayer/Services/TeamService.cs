@@ -1,11 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
 using DataAccessLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Services
 {
@@ -18,7 +13,7 @@ namespace DataAccessLayer.Services
             this.repository = repository;
         }
 
-        public List<Team> GetAll() => repository.GetAllTeams();
+        public List<Team> GetAll() => repository.GetAll();
 
         public Team? GetById(int id) => repository.GetById(id);
 

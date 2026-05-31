@@ -1,11 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
 using DataAccessLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Services
 {
@@ -34,9 +29,9 @@ namespace DataAccessLayer.Services
             return true;
         }
 
-        public List<Game> GetAllGames()
+        public List<Game> GetAll()
         {
-            return gameRepository.GetAllGames();
+            return gameRepository.GetAll();
         }
 
         public Game? GetById(int id)

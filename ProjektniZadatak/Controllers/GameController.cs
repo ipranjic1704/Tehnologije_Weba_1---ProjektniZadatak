@@ -17,11 +17,11 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Game>> GetAllGames()
+        public ActionResult<List<Game>> GetAll()
         {
             try
             {
-                return Ok(service.GetAllGames());
+                return Ok(service.GetAll());
             }
             catch (Exception ex) 
             {
