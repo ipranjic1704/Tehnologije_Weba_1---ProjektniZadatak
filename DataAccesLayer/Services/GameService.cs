@@ -49,7 +49,6 @@ namespace DataAccessLayer.Services
             Game? exists = gameRepository.GetById(id);
             if (exists == null)
             {
-                Console.WriteLine("Pogreška ID... Ne postoji igra s tim ID");
                 return null;
             }
 

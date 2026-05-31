@@ -65,12 +65,10 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                Game updated = new Game()
-                {
-                    Name = updatedGame.Name,
-                    Genre = updatedGame.Genre
-                };
-                return Ok(service.Update(id, updatedGame));
+                Game? updated = service.Update(id, updatedGame);
+                if (updated == null)
+                    return NotFound();
+                return Ok(updated);
             }
             catch (Exception e)
             {
@@ -82,9 +80,7 @@ namespace ProjektniZadatak.Controllers
         public ActionResult Delete(int id)
         {
             if (!service.Delete(id))
-                return NotFound();
-
-            service.Delete(id);
+                return NotFound();;
             return NoContent();
         }
     }
