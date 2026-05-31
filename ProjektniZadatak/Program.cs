@@ -5,6 +5,12 @@ using DataAccessLayer;
 using DataAccessLayer.Repository;
 using DataAccessLayer.Implementations;
 using System.Text.Json.Serialization;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +38,11 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IMatchService, MatchService>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<ITournamentService, TournamentService>();
 
 var app = builder.Build();
 

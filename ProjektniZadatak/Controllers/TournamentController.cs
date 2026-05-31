@@ -1,5 +1,5 @@
-﻿using DataAccessLayer.Model;
-using DataAccessLayer.Repository;
+﻿using DataAccessLayer.Interfaces;
+using DataAccessLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
 
@@ -9,11 +9,11 @@ namespace ProjektniZadatak.Controllers
     [ApiController]
     public class TournamentController : ControllerBase
     {
-        private readonly ITournamentRepository repository;
+        private readonly ITournamentService service;
 
-        public TournamentController(ITournamentRepository repository)
+        public TournamentController(ITournamentService service)
         {
-            this.repository = repository;
+            this.service = service;
         }
 
         [HttpGet]
@@ -21,19 +21,19 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                return Ok(repository.GetAllTournaments());
+                return Ok(service.GetAll());
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return StatusCode(500, e.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Tournament> GetById(int id)
+        public ActionResult<Tournament> GetById([FromRoute] int id)
         {
-            var tournament = repository.GetById(id);
-            if (tournament == null)
+            Tournament? tournament = service.GetById(id);
+            if(tournament == null)
                 return NotFound();
             return Ok(tournament);
         }
@@ -41,10 +41,10 @@ namespace ProjektniZadatak.Controllers
         [HttpGet("{id}/matches")]
         public ActionResult<Tournament> GetWithMatches(int id)
         {
-            var tournament = repository.GetWithMatches(id);
-            if (tournament == null)
+            Tournament? withMatches = service.GetWithMatches(id);
+            if (withMatches == null)
                 return NotFound();
-            return Ok(tournament);
+            return Ok(withMatches);
         }
 
         [HttpPost]
@@ -52,60 +52,44 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                var tournament = new Tournament()
+                Tournament tournament = new Tournament()
                 {
                     Name = dto.Name,
                     StartDate = dto.StartDate,
                     EndDate = dto.EndDate,
                     GameId = dto.GameId
                 };
-                var created = repository.Add(tournament);
-                return Created(Url.Action(nameof(GetById), new { id = created.Id }), created);
+                Tournament createdTournament = service.Create(tournament);
+                return Created(Url.Action(nameof(GetById), new {id = createdTournament.Id}), createdTournament);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return StatusCode(500, e.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Tournament> Update(int id, [FromBody] TournamentCreateDTO dto)
+        public ActionResult<Tournament> Update(int id, [FromBody] Tournament updated)
         {
             try
             {
-                var tournament = repository.GetById(id);
-                if (tournament == null)
+                Tournament? updatedTournament = service.Update(id, updated);
+                if(updatedTournament == null)
                     return NotFound();
-                var updatedTournament = new Tournament()
-                {
-                    Name = dto.Name,
-                    StartDate = dto.StartDate,
-                    EndDate = dto.EndDate,
-                    GameId = dto.GameId
-                };
-                return Ok(repository.Update(id, updatedTournament));
+                return Ok(updatedTournament);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return StatusCode(500, e.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            try
-            {
-                var tournament = repository.GetById(id);
-                if (tournament == null)
-                    return NotFound();
-                repository.Delete(id);
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
+            if (!service.Delete(id))
+                return NotFound();
+            return NoContent();
         }
     }
 }

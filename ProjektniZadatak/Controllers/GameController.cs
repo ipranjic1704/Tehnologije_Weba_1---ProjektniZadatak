@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Interfaces;
+using DataAccessLayer.Model;
 using DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
@@ -9,11 +10,11 @@ namespace ProjektniZadatak.Controllers
     [ApiController]
     public class GameController : ControllerBase
     {
-        private readonly IGameRepository repository;
+        private readonly IGameService service;
 
-        public GameController(IGameRepository repository)
+        public GameController(IGameService service)
         {
-            this.repository = repository;
+            this.service = service;
         }
 
         [HttpGet]
@@ -21,7 +22,7 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                return Ok(repository.GetAllGames());
+                return Ok(service.GetAllGames());
             }
             catch (Exception ex) 
             {
@@ -32,7 +33,7 @@ namespace ProjektniZadatak.Controllers
         [HttpGet("{id}")]
         public ActionResult<Game> GetById(int id)
         {
-            Game? game = repository.GetById(id);
+            Game? game = service.GetById(id);
             if (game == null)
             {
                 return NotFound();
@@ -50,7 +51,7 @@ namespace ProjektniZadatak.Controllers
                     Name = gameDTO.Name,
                     Genre = gameDTO.Genre
                 };
-                var createdGame = repository.Add(game);
+                var createdGame = service.Create(game);
                 return Created(Url.Action(nameof(GetById), new { id = createdGame.Id }), createdGame);
             }
             catch (Exception e)
@@ -64,13 +65,12 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                Game? game = repository.GetById(id);
-
-                if (game == null)
-                    return NotFound();
-
-                Game updated = repository.Update(id, updatedGame);
-                return Ok(updated);
+                Game updated = new Game()
+                {
+                    Name = updatedGame.Name,
+                    Genre = updatedGame.Genre
+                };
+                return Ok(service.Update(id, updatedGame));
             }
             catch (Exception e)
             {
@@ -81,11 +81,10 @@ namespace ProjektniZadatak.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            Game? game = repository.GetById(id);
-            if (game == null)
+            if (!service.Delete(id))
                 return NotFound();
 
-            repository.Delete(id);
+            service.Delete(id);
             return NoContent();
         }
     }

@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Repository
+namespace DataAccessLayer.Interfaces
 {
-    public interface ITeamRepository
+    public interface ITeamService
     {
-        List<Team> GetAllTeams();
+        List<Team> GetAll();
         Team? GetById(int id);
         Team? GetWithPlayers(int id);
         List<Player> GetPlayersFromTeam(int id);
         Team Create(Team team);
-        Team Update(int id, Team team);
-        void Delete(int id);
+        Team? Update(int id, Team team);
+        bool Delete(int id);
     }
 }

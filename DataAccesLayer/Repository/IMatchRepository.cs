@@ -4,9 +4,9 @@
 {
     public interface IMatchRepository
     {
-        List<Match> GetAllMatches();
+        List<Match> GetAll();
         Match? GetById(int id);
-        Match Add(Match match);
+        Match Create(Match match);
         Match Update(int id, Match match);
         void Delete(int id);
     }

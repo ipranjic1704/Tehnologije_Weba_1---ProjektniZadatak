@@ -17,7 +17,7 @@ namespace DataAccessLayer.Implementations
             this.context = context;
         }
 
-        public List<Tournament> GetAllTournaments()
+        public List<Tournament> GetAll()
         {
             return context.Tournaments.ToList();
         }
@@ -34,7 +34,7 @@ namespace DataAccessLayer.Implementations
                 .FirstOrDefault(t => t.Id == id);
         }
 
-        public Tournament Add(Tournament tournament)
+        public Tournament Create(Tournament tournament)
         {
             context.Tournaments.Add(tournament);
             context.SaveChanges();

@@ -17,7 +17,7 @@ namespace DataAccessLayer.Implementations
             this.context = context;
         }
 
-        public Player Add(Player player)
+        public Player Create(Player player)
         {
             context.Players.Add(player);
             context.SaveChanges();

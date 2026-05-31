@@ -37,7 +37,7 @@ namespace DataAccessLayer.Implementations
                 .ToList();
         }
 
-        public Team Add(Team team)
+        public Team Create(Team team)
         {
             context.Teams.Add(team);
             context.SaveChanges();

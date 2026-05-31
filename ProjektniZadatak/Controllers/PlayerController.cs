@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Interfaces;
+using DataAccessLayer.Model;
 using DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
@@ -9,11 +10,11 @@ namespace ProjektniZadatak.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        private readonly IPlayerRepository repository;
+        private readonly IPlayerService service;
 
-        public PlayerController(IPlayerRepository repository)
+        public PlayerController(IPlayerService service)
         {
-            this.repository = repository;
+            this.service = service;
         }
 
         [HttpGet]
@@ -21,7 +22,7 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                return Ok(repository.GetAllPlayers());
+                return Ok(service.GetAll());
             }
             catch (Exception e)
             {
@@ -32,7 +33,7 @@ namespace ProjektniZadatak.Controllers
         [HttpGet("{id}")]
         public ActionResult<Player> GetById(int id)
         {
-            var player = repository.GetById(id);
+            var player = service.GetById(id);
             if (player == null)
                 return NotFound();
             return Ok(player);
@@ -49,7 +50,7 @@ namespace ProjektniZadatak.Controllers
                     Role = dto.Role,
                     TeamId = dto.TeamId
                 };
-                var created = repository.Add(player);
+                var created = service.Create(player);
                 return Created(Url.Action(nameof(GetById), new { id = created.Id }), created);
             }
             catch (Exception e)
@@ -63,16 +64,13 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                var player = repository.GetById(id);
-                if (player == null)
-                    return NotFound();
                 var updatedPlayer = new Player()
                 {
                     Nickname = dto.Nickname,
                     Role = dto.Role,
                     TeamId = dto.TeamId
                 };
-                return Ok(repository.Update(id, updatedPlayer));
+                return Ok(service.Update(id, updatedPlayer));
             }
             catch (Exception e)
             {
@@ -85,10 +83,8 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                var player = repository.GetById(id);
-                if (player == null)
+                if (!service.Delete(id))
                     return NotFound();
-                repository.Delete(id);
                 return NoContent();
             }
             catch (Exception e)

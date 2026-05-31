@@ -1,6 +1,8 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Interfaces;
+using DataAccessLayer.Model;
 using DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using ProjektniZadatak.DataTransferObjects;
 
 namespace ProjektniZadatak.Controllers
@@ -9,11 +11,11 @@ namespace ProjektniZadatak.Controllers
     [ApiController]
     public class TeamController : ControllerBase
     {
-        private readonly ITeamRepository repository;
+        private readonly ITeamService service;
 
-        public TeamController(ITeamRepository repository)
+        public TeamController(ITeamService service)
         {
-            this.repository = repository;
+            this.service = service;
         }
 
         [HttpGet]
@@ -21,7 +23,7 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                return Ok(repository.GetAllTeams());
+                return Ok(service.GetAll());
             }
             catch (Exception e)
             {
@@ -32,7 +34,7 @@ namespace ProjektniZadatak.Controllers
         [HttpGet("{id}")]
         public ActionResult<Team> GetById(int id)
         {
-            var team = repository.GetWithPlayers(id);
+            var team = service.GetWithPlayers(id);
             if (team == null)
                 return NotFound();
             return Ok(team);
@@ -41,10 +43,10 @@ namespace ProjektniZadatak.Controllers
         [HttpGet("{id}/players")]
         public ActionResult<List<Player>> GetPlayers(int id)
         {
-            var team = repository.GetById(id);
+            var team = service.GetById(id);
             if (team == null)
                 return NotFound();
-            return Ok(repository.GetPlayersFromTeam(id));
+            return Ok(service.GetPlayersFromTeam(id));
         }
 
         [HttpPost]
@@ -58,7 +60,7 @@ namespace ProjektniZadatak.Controllers
                     Tag = dto.Tag,
                     CreatedAt = dto.CreatedAt ?? DateTime.Now
                 };
-                var created = repository.Add(team);
+                var created = service.Create(team);
                 return Created(Url.Action(nameof(GetById), new { id = created.Id }), created);
             }
             catch (Exception e)
@@ -72,15 +74,15 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                var team = repository.GetById(id);
-                if (team == null)
-                    return NotFound();
-                var updatedTeam = new Team()
+                Team updatedTeam = new Team()
                 {
                     Name = dto.Name,
                     Tag = dto.Tag
                 };
-                return Ok(repository.Update(id, updatedTeam));
+                var result = service.Update(id, updatedTeam);
+                if (result == null)
+                    return NotFound();
+                return Ok(result);
             }
             catch (Exception e)
             {
@@ -93,10 +95,8 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                var team = repository.GetById(id);
-                if (team == null)
+                if(!service.Delete(id))
                     return NotFound();
-                repository.Delete(id);
                 return NoContent();
             }
             catch (Exception e)

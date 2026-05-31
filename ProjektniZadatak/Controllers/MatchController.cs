@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Interfaces;
+using DataAccessLayer.Model;
 using DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
@@ -9,11 +10,11 @@ namespace ProjektniZadatak.Controllers
     [ApiController]
     public class MatchController : ControllerBase
     {
-        private readonly IMatchRepository repository;
+        private readonly IMatchService service;
 
-        public MatchController(IMatchRepository repository)
+        public MatchController(IMatchService service)
         {
-            this.repository = repository;
+            this.service = service;
         }
 
         [HttpGet]
@@ -21,7 +22,7 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                return Ok(repository.GetAllMatches());
+                return Ok(service.GetAll());
             }
             catch (Exception e)
             {
@@ -32,7 +33,7 @@ namespace ProjektniZadatak.Controllers
         [HttpGet("{id}")]
         public ActionResult<Match> GetById(int id)
         {
-            var match = repository.GetById(id);
+            var match = service.GetById(id);
             if (match == null)
                 return NotFound();
             return Ok(match);
@@ -50,7 +51,7 @@ namespace ProjektniZadatak.Controllers
                     FirstTeamId = dto.FirstTeamId,
                     SecondTeamId = dto.SecondTeamId
                 };
-                var created = repository.Add(match);
+                var created = service.Create(match);
                 return Created(Url.Action(nameof(GetById), new { id = created.Id }), created);
             }
             catch (Exception e)
@@ -64,9 +65,6 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                var match = repository.GetById(id);
-                if (match == null)
-                    return NotFound();
                 var updatedMatch = new Match()
                 {
                     ScheduledAt = dto.ScheduledAt,
@@ -74,7 +72,7 @@ namespace ProjektniZadatak.Controllers
                     FirstTeamId = dto.FirstTeamId,
                     SecondTeamId = dto.SecondTeamId
                 };
-                return Ok(repository.Update(id, updatedMatch));
+                return Ok(service.Update(id, updatedMatch));
             }
             catch (Exception e)
             {
@@ -87,10 +85,8 @@ namespace ProjektniZadatak.Controllers
         {
             try
             {
-                var match = repository.GetById(id);
-                if (match == null)
+                if (!service.Delete(id))
                     return NotFound();
-                repository.Delete(id);
                 return NoContent();
             }
             catch (Exception e)

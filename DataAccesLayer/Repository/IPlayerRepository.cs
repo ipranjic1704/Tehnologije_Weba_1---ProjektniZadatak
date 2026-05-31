@@ -6,7 +6,7 @@ namespace DataAccessLayer.Repository
     {
         List<Player> GetAllPlayers();
         Player? GetById(int id);
-        Player Add(Player player);
+        Player Create(Player player);
         Player Update(int id, Player player);
         void Delete(int id);
     }

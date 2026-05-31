@@ -13,7 +13,7 @@ namespace DataAccessLayer.Implementations
             this.context = context;
         }
 
-        public List<Match> GetAllMatches()
+        public List<Match> GetAll()
         {
             return context.Matches.ToList();
         }
@@ -25,7 +25,7 @@ namespace DataAccessLayer.Implementations
                 .FirstOrDefault(m => m.Id == id);
         }
 
-        public Match Add(Match match)
+        public Match Create(Match match)
         {
             context.Matches.Add(match);
             context.SaveChanges();
