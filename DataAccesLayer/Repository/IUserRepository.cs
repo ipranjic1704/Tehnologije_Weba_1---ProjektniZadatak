@@ -7,5 +7,6 @@ namespace DataAccessLayer.Repository
         bool UsernameExists(string username);
         User? GetByUsername(string username);
         User Create (User user);
+        User Update(User user);
     }
 }

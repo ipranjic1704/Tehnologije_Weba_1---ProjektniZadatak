@@ -52,5 +52,14 @@ namespace DataAccessLayer.Services
 
             return existingUser;
         }
+
+        public User? PromoteToAdmin(string username)
+        {
+            User? user = repository.GetByUsername(username);
+            if (user == null)
+                return null;
+            user.Role = "admin";
+            return repository.Update(user);
+        }
     }
 }

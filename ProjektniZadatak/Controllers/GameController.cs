@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
 
@@ -17,6 +18,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="Admin,User")]
         public ActionResult<List<Game>> GetAll()
         {
             try
@@ -30,6 +32,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult<Game> GetById(int id)
         {
             Game? game = service.GetById(id);
@@ -41,6 +44,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult<Game> Create([FromBody] GameCreateDTO gameDTO)
         {
             try
@@ -60,6 +64,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<Game> Update(int id, [FromBody] GameCreateDTO gameDTO)
         {
             try
@@ -81,6 +86,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             if (!service.Delete(id))

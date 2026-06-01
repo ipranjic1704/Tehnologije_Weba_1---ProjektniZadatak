@@ -6,5 +6,6 @@ namespace DataAccessLayer.Interfaces
     {
         User? Register(string username, string password);
         User? Login(string username, string password);
+        User? PromoteToAdmin(string username);
     }
 }

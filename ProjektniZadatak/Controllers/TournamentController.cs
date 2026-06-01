@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
 
@@ -17,6 +18,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult<List<Tournament>> GetAll()
         {
             try
@@ -30,6 +32,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult<Tournament> GetById([FromRoute] int id)
         {
             Tournament? tournament = service.GetById(id);
@@ -39,6 +42,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet("{id}/matches")]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult<Tournament> GetWithMatches(int id)
         {
             Tournament? withMatches = service.GetWithMatches(id);
@@ -48,6 +52,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult<Tournament> Create([FromBody] TournamentCreateDTO dto)
         {
             try
@@ -69,6 +74,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<Tournament> Update(int id, [FromBody] TournamentCreateDTO dto)
         {
             try
@@ -92,6 +98,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             if (!service.Delete(id))

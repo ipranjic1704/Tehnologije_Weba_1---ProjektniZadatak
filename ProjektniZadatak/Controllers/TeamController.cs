@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
 
@@ -17,6 +18,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult<List<Team>> GetAll()
         {
             try
@@ -30,6 +32,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult<Team> GetById(int id)
         {
             var team = service.GetWithPlayers(id);
@@ -39,6 +42,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet("{id}/players")]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult<List<Player>> GetPlayers(int id)
         {
             var team = service.GetById(id);
@@ -48,6 +52,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult<Team> Create([FromBody] TeamCreateDTO dto)
         {
             try
@@ -68,6 +73,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<Team> Update(int id, [FromBody] TeamCreateDTO dto)
         {
             try
@@ -89,6 +95,7 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             try
