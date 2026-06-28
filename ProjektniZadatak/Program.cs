@@ -12,6 +12,7 @@ using DataAccessLayer.Repository.Implementation;
 using DataAccessLayer.Services.Interface;
 using DataAccessLayer.Services.Implementation;
 using Serilog;
+using ProjektniZadatak.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -100,7 +101,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<RequestLoggingMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
