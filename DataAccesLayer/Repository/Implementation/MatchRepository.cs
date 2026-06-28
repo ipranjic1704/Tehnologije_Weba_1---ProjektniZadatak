@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DataAccessLayer.Model;
-using DataAccessLayer.Repository;
+using DataAccessLayer.Repository.Interface;
 
-namespace DataAccessLayer.Implementations
+namespace DataAccessLayer.Repository.Implementation
 {
     public class MatchRepository : IMatchRepository
     {

@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Model;
 
-namespace DataAccessLayer.Repository
+namespace DataAccessLayer.Repository.Interface
 {
     public interface ITeamRepository
     {

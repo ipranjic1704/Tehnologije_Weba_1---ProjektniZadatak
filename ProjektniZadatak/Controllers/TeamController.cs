@@ -1,5 +1,5 @@
-﻿using DataAccessLayer.Interfaces;
-using DataAccessLayer.Model;
+﻿using DataAccessLayer.Model;
+using DataAccessLayer.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
@@ -18,7 +18,6 @@ namespace ProjektniZadatak.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,User")]
         public ActionResult<List<Team>> GetAll()
         {
             try

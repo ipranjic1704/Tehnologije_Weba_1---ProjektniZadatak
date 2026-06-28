@@ -1,19 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using DataAccessLayer.Model;
 using DataAccessLayer;
-using DataAccessLayer.Repository;
-using DataAccessLayer.Implementations;
 using System.Text.Json.Serialization;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using DataAccessLayer.Interfaces;
-using DataAccessLayer.Services;
 using Microsoft.OpenApi.Models;
 using DataAccessLayer.Security;
-
+using DataAccessLayer.Repository.Interface;
+using DataAccessLayer.Repository.Implementation;
+using DataAccessLayer.Services.Interface;
+using DataAccessLayer.Services.Implementation;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog(
+    (context, config) => config.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
 

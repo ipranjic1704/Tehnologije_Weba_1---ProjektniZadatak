@@ -1,14 +1,14 @@
 ﻿using DataAccessLayer.Model;
 
-namespace DataAccessLayer.Repository
+namespace DataAccessLayer.Services.Interface
 {
-    public interface ITournamentRepository
+    public interface ITournamentService
     {
         List<Tournament> GetAll();
         Tournament? GetById(int id);
         Tournament? GetWithMatches(int id);
         Tournament Create(Tournament tournament);
-        Tournament Update(int id, Tournament tournament);
-        void Delete(int id);
+        Tournament? Update(int id, Tournament tournament);
+        bool Delete(int id);
     }
 }

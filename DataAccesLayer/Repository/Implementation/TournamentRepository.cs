@@ -1,8 +1,8 @@
 ﻿using DataAccessLayer.Model;
-using DataAccessLayer.Repository;
+using DataAccessLayer.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccessLayer.Implementations
+namespace DataAccessLayer.Repository.Implementation
 {
     public class TournamentRepository : ITournamentRepository
     {

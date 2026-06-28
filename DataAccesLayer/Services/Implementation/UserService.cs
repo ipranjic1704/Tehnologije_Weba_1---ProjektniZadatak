@@ -1,9 +1,9 @@
-﻿using DataAccessLayer.Interfaces;
-using DataAccessLayer.Model;
-using DataAccessLayer.Repository;
+﻿using DataAccessLayer.Model;
+using DataAccessLayer.Repository.Interface;
 using DataAccessLayer.Security;
+using DataAccessLayer.Services.Interface;
 
-namespace DataAccessLayer.Services
+namespace DataAccessLayer.Services.Implementation
 {
     public class UserService : IUserService
     {

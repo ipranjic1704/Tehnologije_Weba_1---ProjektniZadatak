@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Model;
 
-namespace DataAccessLayer.Interfaces
+namespace DataAccessLayer.Services.Interface
 {
     public interface IMatchService
     {

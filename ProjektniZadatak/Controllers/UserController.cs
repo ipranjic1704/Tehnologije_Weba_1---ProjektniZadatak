@@ -1,11 +1,11 @@
-﻿using DataAccessLayer.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjektniZadatak.DataTransferObjects;
 using ProjektniZadatak.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using DataAccessLayer.Model;
+using DataAccessLayer.Services.Interface;
 
 namespace ProjektniZadatak.Controllers
 {
